@@ -3,6 +3,7 @@ const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   devServer: {
@@ -61,10 +62,14 @@ module.exports = {
     Buffer: true
   },
   plugins: [
-    new DuplicatePackageCheckerPlugin(),
+    // new DuplicatePackageCheckerPlugin(),
     new HtmlWebpackPlugin({template: 'index.html'}),
     new OpenBrowserPlugin(),
-    new StatsWebpackPlugin('stats.json')
+    new StatsWebpackPlugin('stats.json'),
+    // new webpack.ProvidePlugin({
+    //   TextEncoder: ['text-encoding-polyfill', 'TextEncoder'],
+    //   TextDecoder: ['text-encoding-polyfill', 'TextDecoder']
+    // })
   ],
   resolve: {
     alias: {
