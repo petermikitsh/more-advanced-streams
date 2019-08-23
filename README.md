@@ -20,7 +20,7 @@ Suppose you have a REST API that returns an array of 1 million JSON records like
 
 You want to start displaying data **before** the full response body is available. How do you do it? With `JSONStream` and `readable-stream`!
 
-To put a reasonable amount of content in the DOM, only the first 50 results are displayed.
+To put a reasonable amount of content in the DOM, only the first 50 results are displayed. Once we have 50 records, the network request is cancelled, since we no longer wish to receive more data (in this contrived example).
 
 This solution is tested and working in:
 
