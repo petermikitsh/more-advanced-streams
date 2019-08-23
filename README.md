@@ -31,6 +31,9 @@ npm start
 
 Your browser will automatically open to http://localhost:8080/
 
+Demo Video:
+
+![stream_json.gif](stream_json.gif)
 
 Memory usage remains stable over time:
 
