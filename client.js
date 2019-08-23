@@ -52,7 +52,7 @@ fetchStream(`${window.location.origin}/bigdata`, { signal })
     // Wait a random amount of time before processing chunks
     const waitMs = Math.floor(Math.random() * 250) + 500; // 500-750
     await new Promise(resolve => setTimeout(resolve, waitMs));
-    // Only record first 100 results
+    // Only record first 50 results
     let count = 0;
     const results = [];
     const reader = response.body.getReader();
@@ -61,7 +61,7 @@ fetchStream(`${window.location.origin}/bigdata`, { signal })
     const writableStream = new Writable({
       objectMode: true,
       write: (data, _, done) => {
-        if (count === 100) {
+        if (count === 50) {
           controller.abort();
           return done();
         }

@@ -22,7 +22,7 @@ app.get('/bigdata', (req, res) => {
     }
     res.write(`${index > 0 ? ',' : ''}{"id":"${index}","title":"Foo ${index}"}`);
     index = index + 1;
-  }, 100);  
+  }, 200);  
 });
 
 app.use(express.static(__dirname));
