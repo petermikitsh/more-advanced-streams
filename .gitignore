@@ -1,0 +1,4 @@
+dist/*
+!dist/server.js
+node_modules
+.npmrc
