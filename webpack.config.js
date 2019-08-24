@@ -7,6 +7,7 @@ const webpack = require('webpack');
 
 module.exports = {
   devServer: {
+    compress: true,
     // Needed for viewing in IE11 on VM
     host: '0.0.0.0',
     proxy: {
@@ -73,7 +74,10 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      bluebird: 'core-js/fn/promise'
+      assert: path.resolve(__dirname, 'node_modules/assert'),
+      bluebird: 'core-js/fn/promise',
+      util: path.resolve(__dirname, 'node_modules/util'),
+      inherits: path.resolve(__dirname, 'node_modules/inherits/inherits_browser.js')
     },
     mainFields: ['module', 'main']
   }

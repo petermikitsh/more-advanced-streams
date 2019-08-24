@@ -11,6 +11,7 @@ if (!window.TextEncoder) {
   window.TextEncoder = require('text-encoding-polyfill').TextEncoder;
 }
 
+import zlib from 'zlib';
 import JSONStream from 'JSONstream';
 import { Readable, Writable } from 'readable-stream';
 import React from 'react';
@@ -47,7 +48,7 @@ const controller = new AbortController();
 const signal = controller.signal;
 
 // Endpoint that returns 1,000,000 records
-fetchStream(`${window.location.origin}/bigdata`, { signal })
+fetchStream('http://localhost:8081/bigdata', { signal })
   .then(async response => {
     // Wait a random amount of time before processing chunks
     const waitMs = Math.floor(Math.random() * 250) + 500; // 500-750
@@ -65,7 +66,6 @@ fetchStream(`${window.location.origin}/bigdata`, { signal })
           controller.abort();
           return done();
         }
-        console.log('object', data);
         results.push(data);
         ReactDOM.render(
           <App results={results} />,
@@ -77,12 +77,15 @@ fetchStream(`${window.location.origin}/bigdata`, { signal })
     });
 
     readableStream
+      .pipe(zlib.createGunzip())
       .pipe(JSONStream.parse('records.*'))
       .pipe(writableStream);
 
     while (chunk) {
-      console.log('chunk', new TextDecoder('utf-8').decode(chunk.value));
       readableStream.push(chunk.value);
+      if (chunk.done) {
+        break;
+      }
       chunk = await reader.read();
     }
   })
